@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/opt/ros/humble/include/**",
+        "/home/mario/REPOS/ROS_PACKAGES/uros_ws/src/uros/micro-ROS-Agent/micro_ros_agent/include/**",
+        "/home/mario/REPOS/differential_robot/bumperbot_ws/src/bumperbot_controller/include/**",
+        "/home/mario/REPOS/differential_robot/bumperbot_ws/src/bumperbot_cpp_examples/include/**",
+        "/home/mario/REPOS/differential_robot/bumperbot_ws/src/bumperbot_firmware/include/**",
+        "/home/mario/REPOS/differential_robot/bumperbot_ws/src/bumperbot_localization/include/**",
+        "/home/mario/REPOS/differential_robot/diffbot_ws/src/diffbot_cpp_examples/include/**",
+        "/home/mario/REPOS/differential_robot/robot_pkg/include/**",
+        "/home/mario/src/GazeboPlugin/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
