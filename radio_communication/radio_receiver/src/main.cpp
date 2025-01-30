@@ -2,7 +2,7 @@
 #include <RF24.h>
 
 // NRF24L01 Pinout
-#define CE 9
+#define CE 3
 #define CSN 10
 
 RF24 radio(CE, CSN);
@@ -13,7 +13,9 @@ void setup()
 {
     Serial.begin(115200); // Debugging output
     radio.begin();
-    radio.openReadingPipe(1, canalId);
+    //radio.setChannel(5);
+    radio.setPALevel(RF24_PA_MIN);
+    radio.openReadingPipe(0, canalId);
     radio.startListening();
 }
 

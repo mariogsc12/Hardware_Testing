@@ -3,8 +3,8 @@
 #include <RF24.h>
 
 // NRF24L01 Pinout
-#define CE 9
-#define CSN 10
+#define CE 4
+#define CSN 5
 
 Metro sampleTime(50); // Sample time: 50ms
 
@@ -24,22 +24,20 @@ void setup()
     Serial.begin(115200);
     radio.begin();
     radio.openWritingPipe(canalId);
-    radio.setPALevel(RF24_PA_MAX); // Maximum range
+    radio.setPALevel(RF24_PA_MIN); // Maximum range
     radio.stopListening();
 }
 
 void loop()
 {
-    if (sampleTime.check() == 1)
+    if(sampleTime.check()==1)
     {
         // Format the data into the buffer as a string with a terminator \r\n
         int messageLength = snprintf(buffer, bufferSize, "%d,%d,%d\r\n", data1, data2, data3);
-
         // Send only the necessary bytes (messageLength)
         if (messageLength > 0 && messageLength <= bufferSize)
         {
             radio.write(buffer, messageLength); 
-
             Serial.print("Sent: "); // For debugging
             Serial.print(buffer); 
             Serial.print(" - bufferSize: ");
@@ -49,10 +47,10 @@ void loop()
         {
             Serial.println("Error: Message exceeds buffer size!");
         }
-
         // Example: Update data for the next loop
         data1++;
         data2 += 2;
         data3 += 3;
     }
+
 }

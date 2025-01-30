@@ -14,9 +14,9 @@ class Lora
         Lora(const int, const int, const int, const long);
         ~Lora();
 
-        bool initialize();
+        bool initialize();         
         void sendMsg(String);
-        String receiveMsg();
+        String receiveMsg();      
 };
 
 #endif
