@@ -1,0 +1,5 @@
+# Ignorar la carpeta .pio
+.pio/
+
+# Ignorar la carpeta .vscode
+.vscode/
