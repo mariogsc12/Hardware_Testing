@@ -12,6 +12,8 @@ WT901CTTL     ESP32 Dev Module
     RX  <--->  TX2 (GPIO17)
     GND <--->  GND
 */
+#define LIVESERIAL_MILLIS(id, value) { unsigned long ms = millis(); Serial.print(id);  Serial.print(':');  Serial.print(value);  Serial.print('@');  Serial.println(ms); }
+
 #define RXD2 16
 #define TXD2 17
 
@@ -164,7 +166,7 @@ static void AutoScanSensor(void) {
       if (s_cDataUpdate != 0) {
         Serial.print(c_uiBaud[i]); 
         Serial.print(" baud sensor detected\r\n\r\n"); 
-        ShowHelp(); 
+        //ShowHelp(); 
         return; 
       }
       iRetry--; 
@@ -197,6 +199,15 @@ void setup() {
   } else {
     Serial.print("Acc calibration Incorrect\r\n");
   }
+
+  /* // Not visible changes with this configuration
+  if (WitSetBandwidth(BANDWIDTH_256HZ) == WIT_HAL_OK) {
+    Serial.print("Bandwith properly configured to 256 Hz\r\n");
+  } else {
+    Serial.print("ERROR - Bandwith configuration\r\n");
+  }
+  */
+  
 
   if (WitStartMagCali() == WIT_HAL_OK) {
     Serial.print("Mag calibration started. Move sensor in figure-eight motion.\r\n");
@@ -236,6 +247,11 @@ void loop() {
     }
 
     if (s_cDataUpdate & ACC_UPDATE) {
+      LIVESERIAL_MILLIS("accX",fAcc[0]);
+      LIVESERIAL_MILLIS("accY",fAcc[1]);
+      LIVESERIAL_MILLIS("accZ",fAcc[2]);
+      
+      /*
       Serial.print("acc: ");
       Serial.print(fAcc[0], 3);
       Serial.print(" ");
@@ -243,10 +259,16 @@ void loop() {
       Serial.print(" ");
       Serial.print(fAcc[2], 3);
       Serial.print("\r\n");
+      */
       s_cDataUpdate &= ~ACC_UPDATE;
     }
 
     if (s_cDataUpdate & GYRO_UPDATE) {
+      LIVESERIAL_MILLIS("gyroX",fGyro[0]);
+      LIVESERIAL_MILLIS("gyroY",fGyro[1]);
+      LIVESERIAL_MILLIS("gyroZ",fGyro[2]);
+
+      /*
       Serial.print("gyro: ");
       Serial.print(fGyro[0], 1);
       Serial.print(" ");
@@ -254,10 +276,16 @@ void loop() {
       Serial.print(" ");
       Serial.print(fGyro[2], 1);
       Serial.print("\r\n");
+      */
       s_cDataUpdate &= ~GYRO_UPDATE;
     }
 
     if (s_cDataUpdate & ANGLE_UPDATE) {
+      LIVESERIAL_MILLIS("angleX",fAngle[0]);
+      LIVESERIAL_MILLIS("angleY",fAngle[1]);
+      LIVESERIAL_MILLIS("angleZ",fAngle[2]);
+
+      /*
       Serial.print("angle: ");
       Serial.print(fAngle[0], 3);
       Serial.print(" ");
@@ -265,10 +293,16 @@ void loop() {
       Serial.print(" ");
       Serial.print(fAngle[2], 3);
       Serial.print("\r\n");
+      */
       s_cDataUpdate &= ~ANGLE_UPDATE;
     }
 
     if (s_cDataUpdate & MAG_UPDATE) {
+      LIVESERIAL_MILLIS("magX",sReg[HX]);
+      LIVESERIAL_MILLIS("magY",sReg[HY]);
+      LIVESERIAL_MILLIS("magZ",sReg[HZ]);
+
+      /*
       Serial.print("mag: ");
       Serial.print(sReg[HX]);
       Serial.print(" ");
@@ -276,11 +310,11 @@ void loop() {
       Serial.print(" ");
       Serial.print(sReg[HZ]);
       Serial.print("\r\n");
+      */
       s_cDataUpdate &= ~MAG_UPDATE;
     }
 
     s_cDataUpdate = 0;
   }
-  delay(1000);
 }
 
