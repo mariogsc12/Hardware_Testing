@@ -200,6 +200,7 @@ void setup() {
 
   if (WitStartMagCali() == WIT_HAL_OK) {
     Serial.print("Mag calibration started. Move sensor in figure-eight motion.\r\n");
+    Serial.print("Please move the sensor in the three axes.\r\n");
     delay(10000); 
     if (WitStopMagCali() == WIT_HAL_OK) {
       Serial.print("Mag calibration completed successfully\r\n");
