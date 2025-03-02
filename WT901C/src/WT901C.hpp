@@ -6,12 +6,12 @@ class WT901C
 {
     private:
         Vector3D<float> acc, gyro, angle, mag;
-        const int Pin_RX;
-        const int Pin_TX;
-
+        const int8_t Pin_RX;
+        const int8_t Pin_TX;
+        int32_t outputRate;
         static volatile char s_cDataUpdate;
     public:
-        WT901C(const int Rx, const int Tx);
+        WT901C(const int Rx, const int Tx,int32_t outputRate);
         void initialize();
         void calibrate();
         void saveData();

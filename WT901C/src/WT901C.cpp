@@ -1,9 +1,10 @@
 #include <WT901C.hpp>
 #include <definitions.h>
 
-WT901C::WT901C(const int Rx, const int Tx):
+WT901C::WT901C(const int Rx, const int Tx, int32_t outRate):
         Pin_RX(Rx),
-        Pin_TX(Tx)
+        Pin_TX(Tx),
+        outputRate(outRate)
 {
   s_cDataUpdate = 0;
 }
@@ -17,6 +18,8 @@ void WT901C::initialize()
     WitSerialWriteRegister(sensorUartSend);
     WitRegisterCallBack(sensorDataUpdate);
     WitDelayMsRegister(delayms);
+
+    WitSetOutputRate(outputRate);
 }
 
 void WT901C::autoScanSensor(void)

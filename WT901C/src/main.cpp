@@ -27,7 +27,7 @@ WT901CTTL     ESP32 Dev Module
 
 volatile char WT901C::s_cDataUpdate = 0;
 
-WT901C imu(RXD2,TXD2);
+WT901C imu(RXD2,TXD2,RRATE_200HZ);
 
 int sign(int value) {
   return (value > 0) - (value < 0);
@@ -37,8 +37,6 @@ int sign(int value) {
 // ---------------------------------- //
 // ---------------------------------- //
 // ---------------------------------- //
-
-
 
 void setup() {
   Serial.begin(115200);
