@@ -1,0 +1,12 @@
+---- INFORMACIÓN ADICIONAL ----
+-- LIBRERÍAS UTILIZADAS --
+** Algunas de estas liberias tienen soporte en platformio y pueden ser integradas directamente, otras no y es necesario añadir el fichero de la libreria en la ruta src/3rdparty
+
+
+1. PID_v1.h -- https://github.com/br3ttb/Arduino-PID-Library/tree/master 
+    Utilizada para la programación de los PID
+
+2. Metro.h -- https://github.com/LuSeKa/Metro?tab=readme-ov-file
+    Para realizar interrupciones a distintas frecuencias -- pendiente de agregar
+
+3. 
