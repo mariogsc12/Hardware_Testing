@@ -10,12 +10,12 @@ class Encoder
         const int Pin_B;
 		volatile long pulses;
 		float speed;
-		//float angle;
+		float sample_time;
 		const float PPR;
-		int lastTime;
-		int currentTime;
+		unsigned long lastTime;
+		unsigned long currentTime;
 	public:
-		Encoder(const int pinA, const int pinB);
+		Encoder(const int pinA, const int pinB,const int PPR, const float sampleTime);
 		void initialize();
 		long getPulses();
 		void setPulses(long pulses_);

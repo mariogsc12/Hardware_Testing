@@ -1,11 +1,12 @@
 #include "Arduino.h"
 #include "Encoder.hpp"
 
-Encoder::Encoder(const int pinA, const int pinB,const int PPR_):
+Encoder::Encoder(const int pinA, const int pinB,const int PPR_, const float sampleTime):
     Pin_A(pinA),
     Pin_B(pinB),
     pulses(0),
     PPR(PPR_),
+    sample_time(sampleTime),
     lastTime(0)
 {
 }
@@ -39,7 +40,8 @@ void Encoder::count2()
 void Encoder::update()
 {
   currentTime = millis();
-  speed = (pulses / PPR)*(60.0/(currentTime-lastTime));
+  speed = ((pulses * 60.0)/(PPR*(sample_time/1000))); // RPM
+  // speed = speed * (2*pi/60); // rad/s
   lastTime = millis();
   pulses = 0;
 }
