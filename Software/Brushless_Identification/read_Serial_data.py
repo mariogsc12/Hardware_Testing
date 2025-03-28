@@ -60,14 +60,14 @@ signal.signal(signal.SIGINT, lambda signal, frame: saveData(output_file_name))
 
 # ---- ToBeModified by the user ----
 # Serial Configuration 
-port = "COM9"
+port = "COM4"
 baudrate = 115200
 # Path Configuration
 output_folder_name = "serialData"
-output_file_name = "serialData_test3"
+output_file_name = "serialData_7"
 # Time to store [seconds]
-start_time = 7
-end_time = 8
+start_time = 0
+end_time = 40
 # ----  ----
 
 # Get the directory where the script is located
