@@ -11,7 +11,7 @@
 const int sample_time = 50;
 Metro sampleTime(sample_time);
 
-MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM,PIN_MOTOR_LEFT_DIR);
+MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM,PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_BRAKE, PIN_MOTOR_LEFT_STOP);
 Encoder encoder_left(PIN_ENCODER_LEFT_A,PIN_ENCODER_LEFT_B,2500*3.9*4,sample_time);
 /*
 void writeToMatlab(String data) {
@@ -47,14 +47,14 @@ int start_time = 0;
 int setControlAction(int time){
   int time_sec = time / 1000;
 
-  if(time_sec <= 5)return 10;
-  else if(time_sec >5 && time_sec <= 10)return 15;
-  else if(time_sec > 10 && time_sec <= 15)return 20;
-  else if(time_sec > 15 && time_sec <= 20)return 25;
-  else if(time_sec > 20 && time_sec <= 25)return 30;
-  else if(time_sec > 25 && time_sec <= 30)return 35;
-  else if(time_sec > 30 && time_sec <= 35)return 40;
-  else if(time_sec > 35 && time_sec <= 40)return 45;
+  if(time_sec <= 5)return 0;
+  else if(time_sec >5 && time_sec <= 10)return 10;
+  else if(time_sec > 10 && time_sec <= 15)return -10;
+  else if(time_sec > 15 && time_sec <= 20)return -10;
+  else if(time_sec > 20 && time_sec <= 25)return 20;
+  else if(time_sec > 25 && time_sec <= 30)return 20;
+  else if(time_sec > 30 && time_sec <= 35)return -20;
+  else if(time_sec > 35 && time_sec <= 40)return -20;
   //else if(time_sec > 40 && time_sec <= 45)return -5;
   //else if(time_sec > 45 && time_sec <= 50)return -5;
   //else if(time_sec > 50 && time_sec <= 55)return -5;
@@ -111,7 +111,7 @@ void loop()
     elapsed_time = millis() - start_time;
     //Serial.print("time: ");Serial.print(elapsed_time);
     //Serial.print(" - pulses: ");Serial.print(encoder_left.getPulses());
-    //control_action = 10;
+    //control_action = 0;
     control_action=setControlAction(elapsed_time);
     motor_left.move(control_action);
     encoder_left.update();
