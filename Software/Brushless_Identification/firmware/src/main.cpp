@@ -17,8 +17,8 @@ float P = 0.00, I = 0.00, D = 0.00, error = 0.00, errDiff = 0.00, prevErr = 0.00
 float PID();
 
 // Ganancias PID y límites
-float kp = 2.25, ki = 78, kd = 0;
-float target = 20, trgt_min = 10, trgt_max = 30, fb_min = 40, fb_max = 20;
+float kp=0.15, ki=0.7, kd=0.001;
+float target = 20, controlAction_MaxValue = 60;
 
 MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_BRAKE, PIN_MOTOR_LEFT_STOP);
 Encoder encoder_left(PIN_ENCODER_LEFT_A, PIN_ENCODER_LEFT_B, 2500 * 3.9 * 4, sample_time);
@@ -39,47 +39,43 @@ void setup() {
 }
 
 void loop() {
-    now = millis();
-    dt = (now - prvTime) / 1000.00;
-    prvTime = now;
-
+    
     if (sampleTime.check()) {
         encoder_left.update();
-
+        
         // Filtro de paso bajo para suavizar la velocidad medida
         //float alpha = 0.1;
         //feedback = alpha * encoder_left.getSpeed() + (1 - alpha) * feedback;
-
+        
         feedback=encoder_left.getSpeed();
-
+        
         // Calcular control PID manualmente
         pid = PID();
-
+        
         // Limitar la salida del PID
-        pid = constrain(pid, trgt_min, trgt_max);
-
+        pid = constrain(pid, -controlAction_MaxValue, controlAction_MaxValue);
+        
         // Mover el motor
         motor_left.move(pid);
-
+        
         // Imprimir valores
         Serial.print("Control_action: "); Serial.print(pid);
         Serial.print(" - Setpoint: "); Serial.print(target);
         Serial.print(" - Speed: "); Serial.println(feedback);
         
-        sampleTime.reset();
+        // sampleTime.reset();  // creo que no es necesario
     }
 }
 
-// 🔴 Función PID manual
-float PID() {
-    noInterrupts();  
-    error = target - feedback;
-    interrupts();
 
-    // 🔴 Cálculo de términos PID
+float PID() {
+    error = target - feedback;
+    
+    dt = sample_time;  // valor aproximado (si se encuentran problemas calcular en el loop)
+
     P = kp * error;
     I = ki * (errSum = errSum + (error * dt));
-    errSum = constrain(errSum, -maxSum, maxSum);  // Limitar la integral
+    errSum = constrain(errSum, -maxSum, maxSum);  // Limitar la integral (solución sencilla a wind-up)
     D = kd * (error - prevErr) / dt;
     prevErr = error;
 
