@@ -64,7 +64,7 @@ port = "COM4"
 baudrate = 115200
 # Path Configuration
 output_folder_name = "serialData"
-output_file_name = "serialData_7"
+output_file_name = "serialData_8"
 # Time to store [seconds]
 start_time = 0
 end_time = 40
