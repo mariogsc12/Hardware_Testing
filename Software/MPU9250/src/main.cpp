@@ -22,5 +22,5 @@ void loop() {
 
   imu.printSensorData();
 
-  delay(200);
+  delay(20);
 }

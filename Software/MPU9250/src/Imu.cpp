@@ -89,8 +89,8 @@ int Imu::sign(int value){
 }
 
 void Imu::printSensorData() {
-    printValues("Acceleration raw values: ", accRaw.x, accRaw.y, accRaw.z);
-    printValues("Gyroscope raw values: ", gyroRaw.x, gyroRaw.y, gyroRaw.z);
+    //printValues("Acceleration raw values: ", accRaw.x, accRaw.y, accRaw.z);
+    //printValues("Gyroscope raw values: ", gyroRaw.x, gyroRaw.y, gyroRaw.z);
     printValues("Orientation angle values: ", accOrientation.x, accOrientation.y, accOrientation.z);
     printValues("Angle filtered values: ", angle.x, angle.y, angle.z);
 }
