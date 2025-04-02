@@ -9,16 +9,15 @@ const int sample_time = 20;  // 🔴 Reducido para mejorar respuesta
 Metro sampleTime(sample_time);
 
 // Variables PID
-volatile float tic, tac, feedback = 0.00;
-bool dir = 0;
+volatile float feedback = 0.00;
 float now, prvTime, dt;
 float P = 0.00, I = 0.00, D = 0.00, error = 0.00, errDiff = 0.00, prevErr = 0.00, maxSum = 50, errSum = 0.00, pid = 0.00;
 
 float PID();
 
 // Ganancias PID y límites
-float kp=0.15, ki=0.7, kd=0.001;
-float target = 20, controlAction_MaxValue = 60;
+float kp=0, ki=1, kd=0;
+float target = 20, controlAction_MaxValue = 50;
 
 MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_BRAKE, PIN_MOTOR_LEFT_STOP);
 Encoder encoder_left(PIN_ENCODER_LEFT_A, PIN_ENCODER_LEFT_B, 2500 * 3.9 * 4, sample_time);
