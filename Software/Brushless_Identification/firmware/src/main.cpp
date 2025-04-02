@@ -48,11 +48,11 @@ int setControlAction(int time){
   int time_sec = time / 1000;
 
   if(time_sec <= 5)return 10;
-  else if(time_sec >5 && time_sec <= 10)return 15;
+  else if(time_sec >5 && time_sec <= 10)return -10;
   else if(time_sec > 10 && time_sec <= 15)return 20;
-  else if(time_sec > 15 && time_sec <= 20)return 25;
+  else if(time_sec > 15 && time_sec <= 20)return -20;
   else if(time_sec > 20 && time_sec <= 25)return 30;
-  else if(time_sec > 25 && time_sec <= 30)return 35;
+  else if(time_sec > 25 && time_sec <= 30)return -30;
   else if(time_sec > 30 && time_sec <= 35)return 40;
   else if(time_sec > 35 && time_sec <= 40)return 45;
   //else if(time_sec > 40 && time_sec <= 45)return -5;
