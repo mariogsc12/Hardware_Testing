@@ -9,11 +9,15 @@ void Imu::initialize()
     Wire.begin();
     if(!mpu.init()){
         Serial.println("MPU9250 does not respond");
-        return;
-      }
-      else{
+    }
+    else{
         Serial.println("MPU9250 is connected");
-      }
+    }
+
+    Serial.println("Position you MPU9250 flat and don't move it - calibrating...");
+    delay(1000);
+    mpu.autoOffsets();
+    Serial.println("Done!");
 
     mpu.enableGyrDLPF();
     mpu.setGyrDLPF(MPU9250_DLPF_6);
@@ -21,7 +25,6 @@ void Imu::initialize()
     mpu.setAccRange(MPU9250_ACC_RANGE_2G);
     mpu.enableAccDLPF(true);
     mpu.setAccDLPF(MPU9250_DLPF_6);
-
     delay(1000);
 
     Serial.print("[INFO] - Initialize calibration");
@@ -35,6 +38,9 @@ void Imu::update()
     gyroRaw = mpu.getGyrRawValues();
     computeAccelOrientation();
     computeAngle_ComplementaryFilter(0.995);
+
+    angle2.x = mpu.getRoll();
+    angle2.y = mpu.getPitch();
 }
 
 Vector3D <float> Imu::getGyroOffset(){
@@ -64,8 +70,6 @@ void Imu::printValues(const char* label, float x, float y, float z) {
     Serial.println(z);
 }
 
-
-
 void Imu::computeAccelOrientation(){
     // Calculate the orientation angles
     accOrientation.x = atan2(accRaw.y, sign(accRaw.z) * sqrt(pow(accRaw.z,2) + 0.2*pow(accRaw.x,2))) * (180.0 / 3.14);
@@ -77,10 +81,10 @@ void Imu::computeAngle_ComplementaryFilter(float alpha) {
     prev_time = millis();
     
     // Use complementary filter to calculate the angle using accelerometer and gyroscope
-    angle.x = alpha*(last_anglex + ((gyroRaw.x - gyroOffset.x) / 131)*dt) + (1-alpha)*accOrientation.x;
+    angle.x = alpha*(last_angleX + ((gyroRaw.x - gyroOffset.x) / 131)*dt) + (1-alpha)*accOrientation.x;
     angle.y = alpha*(last_angleY + ((gyroRaw.y - gyroOffset.y) / 131)*dt) + (1-alpha)*accOrientation.y;
     angle.z = angle.z + (gyroRaw.z - gyroOffset.z) * gyroScale * dt;
-    last_anglex = angle.x;
+    last_angleX = angle.x;
     last_angleY = angle.y;
 }
 
@@ -91,6 +95,6 @@ int Imu::sign(int value){
 void Imu::printSensorData() {
     //printValues("Acceleration raw values: ", accRaw.x, accRaw.y, accRaw.z);
     //printValues("Gyroscope raw values: ", gyroRaw.x, gyroRaw.y, gyroRaw.z);
-    printValues("Orientation angle values: ", accOrientation.x, accOrientation.y, accOrientation.z);
-    printValues("Angle filtered values: ", angle.x, angle.y, angle.z);
+    printValues("Angle X: ", accOrientation.x, angle.x, angle2.x);
+    //printValues("Angle Y: ", accOrientation.y, angle.y, angle2.y);
 }
