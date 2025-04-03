@@ -5,9 +5,11 @@
 #include <config/definitions.h>
 #include <utilities/Metro.h>
 #include <config/pinout.h>
+#include <utilities/FIR_Filter.h>
 
 const int sample_time = 20;
 Metro sampleTime(sample_time);
+FIR_Filter speed_filter({b0,b1,b2},{a0,a1});
 
 // Variables PID
 volatile float feedback = 0.00;
@@ -81,7 +83,8 @@ void loop()
     encoder_left.update();
 
     speed = encoder_left.getSpeed();
-    filteredSpeed=encoder_left.getFilteredSpeed();
+    filteredSpeed=speed_filter.update(speed);
+
     if (millis() - start_time < 1000) {
         feedback = speed;
       } else {

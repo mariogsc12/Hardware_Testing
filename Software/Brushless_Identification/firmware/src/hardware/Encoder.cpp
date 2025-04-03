@@ -43,16 +43,6 @@ void Encoder::update()
   speed = ((pulses * 60.0)/(PPR*(sample_time/1000))); // RPM
   // speed = speed * (2*pi/60); // rad/s
 
-  x[2] = x[1];
-  x[1] = x[0];
-  x[0] = speed;
-
-  y[2] = y[1];
-  y[1] = y[0];
-
-  y[0] = b[0]*x[0] + b[1]*x[1] + b[2]*x[2] + a[0]*y[1] + a[1]*y[2];
-
-  filtered_speed = y[0];
   lastTime = millis();
   pulses = 0;
 }
@@ -60,9 +50,4 @@ void Encoder::update()
 float Encoder::getSpeed()
 {
   return speed;
-}
-
-float Encoder::getFilteredSpeed()
-{
-  return filtered_speed;
 }

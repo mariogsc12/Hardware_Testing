@@ -41,4 +41,11 @@
 // ENCODER
 #define PPR 2500
 
+// SPEED FIR FILTER 
+#define b0 0.02008337
+#define b1 0.04016673
+#define b2 0.02008337
+#define a0 1.56101808
+#define a1 -0.64135154
+
 #endif
