@@ -16,13 +16,14 @@ class Imu{
         Vector3D <float> gyroOffset;
         
         Vector3D <float> angle;
-        Vector3D <float> angle2;
+        Vector3D <float> angle_cf;
         Vector3D <float> accOrientation;
-
+        
         // Other variables used to store temporal data
-        float dt;
-        long prev_time;
-        float last_angleX, last_angleY;
+        float dt, dt_yaw;
+        long prev_time, prev_time_yaw;
+        float last_angleX, last_angleY, last_angleZ;
+        float last_angleX_cf, last_angleY_cf, last_angleZ_cf;
         
         // Auxiliary functions
         Vector3D<float> getGyroOffset();
@@ -30,6 +31,7 @@ class Imu{
         void computeAngle_ComplementaryFilter(float alpha);
         void computeAccelOrientation();
         int sign(int value);
+        float getYaw();
     public:
         void initialize();
         void calibrate();
