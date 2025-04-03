@@ -14,6 +14,11 @@ class Encoder
 		const float PPR;
 		unsigned long lastTime;
 		unsigned long currentTime;
+		float filtered_speed;
+		float x[3] = {0, 0, 0};  // Historial de velocidades medidas
+		float y[3] = {0, 0, 0};  // Historial de salidas filtradas
+		const float b[3] = {0.02008337, 0.04016673, 0.02008337};
+		const float a[2] = {1.56101808, -0.64135154};
 	public:
 		Encoder(const int pinA, const int pinB,const int PPR, const float sampleTime);
 		void initialize();
@@ -23,6 +28,6 @@ class Encoder
 		void count2();
 		void update();
 		float getSpeed();
-
+		float getFilteredSpeed();
 	};
 #endif

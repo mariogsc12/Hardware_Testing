@@ -1,90 +1,116 @@
 #include <Arduino.h>
+//#include <MainProgram.h>
 #include <hardware/MotorBLDC.hpp>
 #include <hardware/Encoder.hpp>
 #include <config/definitions.h>
 #include <utilities/Metro.h>
 #include <config/pinout.h>
 
-const int sample_time = 10;
+const int sample_time = 20;
 Metro sampleTime(sample_time);
 
 // Variables PID
 volatile float feedback = 0.00;
 float P = 0.00, I = 0.00, D = 0.00;
 float error = 0.00, prevErr = 0.00;
-float errSum = 0.00, maxSum = 200;
+float errSum = 0.00, maxSum = 10;
 float pid = 0.00;
-
-#define NUM_SAMPLES 10
-float speedSamples[NUM_SAMPLES];
-int sampleIndex = 0;
-float speedSum = 0;
-int printCounter = 0;
 //float maxSum;
+
+int8_t control_action = 0;
+int elapsed_time = 0;
+float speed = 0;
+float filteredSpeed=0;
+int start_time = 0;
+String message;
 
 float PID();
 
-float kp = 1.5, ki = 0.8, kd = 0.12;
-float target = 20, controlAction_MaxValue = 60;
+float kp = 1.5, ki = 3, kd = 0.02;
+float target = 40, controlAction_MaxValue = 60;
 float maxOutput = controlAction_MaxValue;
 
-MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_BRAKE, PIN_MOTOR_LEFT_STOP);
-Encoder encoder_left(PIN_ENCODER_LEFT_A, PIN_ENCODER_LEFT_B, 2500 * 3.9 * 4, sample_time);
+MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR);
+Encoder encoder_left(PIN_ENCODER_LEFT_A,PIN_ENCODER_LEFT_B,2500*3.9*4,sample_time);
 
-void encoderCount_1() { encoder_left.count1(); }
-void encoderCount_2() { encoder_left.count2(); }
+/*
+int setControlAction(int time){
+  int time_sec = time / 1000;
 
-void setup() {
+  if(time_sec <= 5)return 10;
+  else if(time_sec >5 && time_sec <= 10)return 10;
+  else if(time_sec > 10 && time_sec <= 15)return 10;
+  else if(time_sec > 15 && time_sec <= 20)return 10;
+  else if(time_sec > 20 && time_sec <= 25)return 30;
+  else if(time_sec > 25 && time_sec <= 30)return 30;
+  else if(time_sec > 30 && time_sec <= 35)return 30;
+  else if(time_sec > 35 && time_sec <= 40)return 30;
+  //else if(time_sec > 40 && time_sec <= 45)return -5;
+  //else if(time_sec > 45 && time_sec <= 50)return -5;
+  //else if(time_sec > 50 && time_sec <= 55)return -5;
+  //else if(time_sec > 55 && time_sec <= 60)return -5;
+  else return 0;
+}
+  */
+
+void encoderCount_1() { encoder_left.count1();}
+void encoderCount_2() { encoder_left.count2();}
+
+void setup() 
+{
+    //mainSetup();
     Serial.begin(115200);
-
     motor_left.initialize();
     encoder_left.initialize();
 
     attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_A), encoderCount_1, CHANGE);
     attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_B), encoderCount_2, CHANGE);
-
-    Serial.println("Sistema listo. Iniciando...");
-
-    for (int i = 0; i < NUM_SAMPLES; i++) {
-        speedSamples[i] = 0;
-    }
+    
+    start_time = millis();
 }
 
-void loop() {
-   if (sampleTime.check()) {
+void loop() 
+{
+  if(sampleTime.check()==1)
+  { 
+    //Para controlar con accion de control
+    //elapsed_time = millis() - start_time;
+    //control_action=setControlAction(elapsed_time);
+    //motor_left.move(control_action);
 
-        //maxSum = abs(target) * 2;
+    encoder_left.update();
 
-        encoder_left.update();
+    speed = encoder_left.getSpeed();
+    filteredSpeed=encoder_left.getFilteredSpeed();
+    if (millis() - start_time < 1000) {
+        feedback = speed;
+      } else {
+        feedback = filteredSpeed;
+      }
 
-        float currentSpeed = encoder_left.getSpeed();
-        feedback = currentSpeed;
 
-        // Calcular control PID
-        pid = PID();
-        pid = constrain(pid, -controlAction_MaxValue, controlAction_MaxValue);
+    // Calcular control PID
+    pid = PID();
+    pid = constrain(pid, -controlAction_MaxValue, controlAction_MaxValue);
+    
 
-        // Mover el motor
-        motor_left.move(pid);
+    motor_left.move(pid);
 
-        // Guardar para media
-        speedSum -= speedSamples[sampleIndex];
-        speedSamples[sampleIndex] = currentSpeed;
-        speedSum += currentSpeed;
-        sampleIndex = (sampleIndex + 1) % NUM_SAMPLES;
+    Serial.print("Control_action: "); Serial.print(pid);
+    Serial.print(" - Setpoint: "); Serial.print(target);
+    Serial.print(" - Speed: "); Serial.println(feedback);
 
-        //printCounter++;
-        //if (printCounter >= 10) {
-           // float averageSpeed = speedSum / NUM_SAMPLES;
+    //data = String(control_action) + "," + String(speed);
+    //writeToMatlab(data);
+    //Serial.print("time: ");Serial.print(elapsed_time);
+    //Serial.print(" - pulses: ");Serial.print(encoder_left.getPulses());
+    //Serial.print(" - control action: ");Serial.print(control_action);
+    //Serial.print(" - speed: ");Serial.println(speed);
+    //Serial.print(" - filtered_speed: ");Serial.println(filtered_speed);
 
-            Serial.print("Control_action: "); Serial.print(pid);
-            Serial.print(" - Setpoint: "); Serial.print(target);
-            Serial.print(" - Speed: "); Serial.println(feedback);
-            //Serial.print(" - Velocidad promedio: "); Serial.println(averageSpeed);
-
-           // printCounter = 0;
-      //  }
-    }
+    //message = String(millis()) +"," + String(control_action) + "," + String(speed) + "," + String(filteredSpeed);
+    //Serial.println(message);
+  }
 }
 
 float PID() {
@@ -104,6 +130,11 @@ float PID() {
     prevErr = error;
 
     float output = P + I + D;
+
+     // BLOQUE NUEVO: Si el error cambia de signo y es pequeño, no invierte el sentido del control para que no haya bloqueo
+     //if ((output > 0 && feedback > target) || (output < 0 && feedback < target)) {
+       // output = 0; 
+   // }
     output = constrain(output, -maxOutput, maxOutput);
 
     return output;
