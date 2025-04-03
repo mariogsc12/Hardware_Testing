@@ -5,14 +5,14 @@
 #include <utilities/Metro.h>
 #include <config/pinout.h>
 
-const int sample_time = 2;
+const int sample_time = 10;
 Metro sampleTime(sample_time);
 
 // Variables PID
 volatile float feedback = 0.00;
 float P = 0.00, I = 0.00, D = 0.00;
 float error = 0.00, prevErr = 0.00;
-float errSum = 0.00, maxSum = 100;
+float errSum = 0.00, maxSum = 200;
 float pid = 0.00;
 
 #define NUM_SAMPLES 10
@@ -24,7 +24,7 @@ int printCounter = 0;
 
 float PID();
 
-float kp = 3, ki = 0.8, kd = 0.12;
+float kp = 1.5, ki = 0.8, kd = 0.12;
 float target = 20, controlAction_MaxValue = 60;
 float maxOutput = controlAction_MaxValue;
 
@@ -51,9 +51,9 @@ void setup() {
 }
 
 void loop() {
-    if (sampleTime.check()) {
+   if (sampleTime.check()) {
 
-       // maxSum = abs(target) * 2;
+        //maxSum = abs(target) * 2;
 
         encoder_left.update();
 
@@ -73,34 +73,35 @@ void loop() {
         speedSum += currentSpeed;
         sampleIndex = (sampleIndex + 1) % NUM_SAMPLES;
 
-        printCounter++;
-        if (printCounter >= 10) {
-            float averageSpeed = speedSum / NUM_SAMPLES;
+        //printCounter++;
+        //if (printCounter >= 10) {
+           // float averageSpeed = speedSum / NUM_SAMPLES;
 
             Serial.print("Control_action: "); Serial.print(pid);
             Serial.print(" - Setpoint: "); Serial.print(target);
-            Serial.print(" - Speed: "); Serial.print(feedback);
-            Serial.print(" - Velocidad promedio: "); Serial.println(averageSpeed);
+            Serial.print(" - Speed: "); Serial.println(feedback);
+            //Serial.print(" - Velocidad promedio: "); Serial.println(averageSpeed);
 
-            printCounter = 0;
-        }
+           // printCounter = 0;
+      //  }
     }
 }
 
 float PID() {
     error = target - feedback;
 
-    if (abs(error) < 0.5) error = 0;
+    //if (abs(error) < 1) error = 0;
 
     P = kp * error;
 
-    errSum += error * sample_time;
+    float dt = sample_time / 1000.0; 
+
+    errSum += error * dt;
     errSum = constrain(errSum, -maxSum, maxSum);
     I = ki * errSum;
 
-    static float lastFeedback = 0;
-    D = -kd * (feedback - lastFeedback) / sample_time;
-    lastFeedback = feedback;
+    D = kd * (error - prevErr) / dt;
+    prevErr = error;
 
     float output = P + I + D;
     output = constrain(output, -maxOutput, maxOutput);
