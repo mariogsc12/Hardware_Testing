@@ -5,11 +5,11 @@
 #include <config/definitions.h>
 #include <utilities/Metro.h>
 #include <config/pinout.h>
-#include <utilities/FIR_Filter.h>
+#include <utilities/Butterworth_Filter.h>
 
 const int sample_time = 20;
 Metro sampleTime(sample_time);
-FIR_Filter speed_filter({b0,b1,b2},{a0,a1});
+ButterworthFilter speed_filter({b0, b1, b2}, {a1, a2});
 
 // Variables PID
 volatile float feedback = 0.00;
@@ -81,16 +81,17 @@ void loop()
     //motor_left.move(control_action);
 
     encoder_left.update();
-
     speed = encoder_left.getSpeed();
     filteredSpeed=speed_filter.update(speed);
 
+    feedback = filteredSpeed;
+    /*
     if (millis() - start_time < 1000) {
         feedback = speed;
       } else {
         feedback = filteredSpeed;
       }
-
+*/
 
     // Calcular control PID
     pid = PID();
