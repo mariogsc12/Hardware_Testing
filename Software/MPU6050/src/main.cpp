@@ -1,3 +1,6 @@
+
+//Prueba con filtro complementario
+/*
 #include <Arduino.h>
 #include "Wire.h"
 #include "I2Cdev.h"
@@ -95,3 +98,4 @@ void loop() {
 
   delay(10);
 }
+*/
