@@ -1,145 +1,76 @@
 #include <Arduino.h>
-//#include <MainProgram.h>
 #include <hardware/MotorBLDC.hpp>
 #include <hardware/Encoder.hpp>
 #include <config/definitions.h>
 #include <utilities/Metro.h>
 #include <config/pinout.h>
-#include <utilities/Butterworth_Filter.h>
+#include <hardware/IMU.hpp>
+#include <utilities/KalmanFilter.hpp>
 
 const int sample_time = 20;
 Metro sampleTime(sample_time);
-ButterworthFilter speed_filter({b0, b1, b2}, {a1, a2});
-
-// Variables PID
-volatile float feedback = 0.00;
-float P = 0.00, I = 0.00, D = 0.00;
-float error = 0.00, prevErr = 0.00;
-float errSum = 0.00, maxSum = 10;
-float pid = 0.00;
-//float maxSum;
-
-int8_t control_action = 0;
-int elapsed_time = 0;
-float speed = 0;
-float filteredSpeed=0;
-int start_time = 0;
-String message;
-
-float PID();
-
-float kp = 1.5, ki = 3, kd = 0.02;
-float target = 40, controlAction_MaxValue = 60;
-float maxOutput = controlAction_MaxValue;
 
 MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR);
-Encoder encoder_left(PIN_ENCODER_LEFT_A,PIN_ENCODER_LEFT_B,2500*3.9*4,sample_time);
+Encoder encoder_left(PIN_ENCODER_LEFT_A, PIN_ENCODER_LEFT_B, 2500 * 3.9 * 4, sample_time);
 
-/*
-int setControlAction(int time){
-  int time_sec = time / 1000;
+IMU imu;
+KalmanFilter kalmanPitch;
 
-  if(time_sec <= 5)return 10;
-  else if(time_sec >5 && time_sec <= 10)return 10;
-  else if(time_sec > 10 && time_sec <= 15)return 10;
-  else if(time_sec > 15 && time_sec <= 20)return 10;
-  else if(time_sec > 20 && time_sec <= 25)return 30;
-  else if(time_sec > 25 && time_sec <= 30)return 30;
-  else if(time_sec > 30 && time_sec <= 35)return 30;
-  else if(time_sec > 35 && time_sec <= 40)return 30;
-  //else if(time_sec > 40 && time_sec <= 45)return -5;
-  //else if(time_sec > 45 && time_sec <= 50)return -5;
-  //else if(time_sec > 50 && time_sec <= 55)return -5;
-  //else if(time_sec > 55 && time_sec <= 60)return -5;
-  else return 0;
-}
-  */
+float speed = 0;
+int8_t control_action = 0;
+int start_time = 0;
+int elapsed_time = 0;
+String message;
 
-void encoderCount_1() { encoder_left.count1();}
-void encoderCount_2() { encoder_left.count2();}
+void encoderCount_1() { encoder_left.count1(); }
+void encoderCount_2() { encoder_left.count2(); }
 
 void setup() 
 {
-    //mainSetup();
     Serial.begin(115200);
+
+    // Inicializar motor y encoder
     motor_left.initialize();
     encoder_left.initialize();
-
     attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_A), encoderCount_1, CHANGE);
     attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_B), encoderCount_2, CHANGE);
-    
+
+    // Inicializar IMU
+    if (!imu.begin()) {
+        Serial.println("Error inicializando IMU");
+        while (true);
+    }
+
+    imu.calibrateGyro();
+    imu.readRaw();
+    imu.computeAccelerometerAngles();
+    kalmanPitch.update(imu.getPitchAcc(), 0, 0);
+
     start_time = millis();
 }
 
 void loop() 
 {
-  if(sampleTime.check()==1)
-  { 
-    //Para controlar con accion de control
-    //elapsed_time = millis() - start_time;
-    //control_action=setControlAction(elapsed_time);
-    //motor_left.move(control_action);
+    if (sampleTime.check() == 1)
+    {
+        elapsed_time = millis() - start_time;
 
-    encoder_left.update();
-    speed = encoder_left.getSpeed();
-    filteredSpeed=speed_filter.update(speed);
+        imu.readRaw();
+        imu.computeAccelerometerAngles();
 
-    feedback = filteredSpeed;
-    /*
-    if (millis() - start_time < 1000) {
-        feedback = speed;
-      } else {
-        feedback = filteredSpeed;
-      }
-*/
+        float dt = sample_time / 1000.0;
+        float pitch = kalmanPitch.update(imu.getPitchAcc(), imu.getGxDPS(), dt);
 
-    // Calcular control PID
-    pid = PID();
-    pid = constrain(pid, -controlAction_MaxValue, controlAction_MaxValue);
-    
+        encoder_left.update();
+        speed = encoder_left.getSpeed();
 
-    motor_left.move(pid);
+        // Acción de control proporcional al ángulo
+        float Kp = 1.5;
+        control_action = constrain(Kp * pitch, -100, 100);
+        
+        motor_left.move(control_action);
 
-    Serial.print("Control_action: "); Serial.print(pid);
-    Serial.print(" - Setpoint: "); Serial.print(target);
-    Serial.print(" - Speed: "); Serial.println(feedback);
-
-    //data = String(control_action) + "," + String(speed);
-    //writeToMatlab(data);
-    //Serial.print("time: ");Serial.print(elapsed_time);
-    //Serial.print(" - pulses: ");Serial.print(encoder_left.getPulses());
-    //Serial.print(" - control action: ");Serial.print(control_action);
-    //Serial.print(" - speed: ");Serial.println(speed);
-    //Serial.print(" - filtered_speed: ");Serial.println(filtered_speed);
-
-    //message = String(millis()) +"," + String(control_action) + "," + String(speed) + "," + String(filteredSpeed);
-    //Serial.println(message);
-  }
-}
-
-float PID() {
-    error = target - feedback;
-
-    //if (abs(error) < 1) error = 0;
-
-    P = kp * error;
-
-    float dt = sample_time / 1000.0; 
-
-    errSum += error * dt;
-    errSum = constrain(errSum, -maxSum, maxSum);
-    I = ki * errSum;
-
-    D = kd * (error - prevErr) / dt;
-    prevErr = error;
-
-    float output = P + I + D;
-
-     // BLOQUE NUEVO: Si el error cambia de signo y es pequeño, no invierte el sentido del control para que no haya bloqueo
-     //if ((output > 0 && feedback > target) || (output < 0 && feedback < target)) {
-       // output = 0; 
-   // }
-    output = constrain(output, -maxOutput, maxOutput);
-
-    return output;
+        message = String(millis()) + ", " + String(control_action) + ", " + String(pitch, 2) + ", " + String(speed, 2);
+        Serial.println(message);
+    }
 }

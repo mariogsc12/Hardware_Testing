@@ -1,36 +1,26 @@
-#include <Arduino.h>
-#include <Wire.h>
 #include <MPU9250_WE.h>
+#include <Wire.h>
+#include <Imu.hpp>
 
-#define MPU9250_ADDR 0x68  // Dirección I2C
 
-MPU9250_WE mpu(&Wire, MPU9250_ADDR); 
+#define MPU9250_ADDR 0x68
+
+MPU9250_WE mpu = MPU9250_WE(MPU9250_ADDR);
+
+Imu imu;
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin(8, 9);  // SDA = GPIO 8, SCL = GPIO 9
+  
+  imu.initialize();
 
-  if (!mpu.init()) {
-    Serial.println("No se pudo encontrar el MPU9250");
-    while (1);
-  }
-
-  // Calibración automática del giroscopio y acelerómetro
-  mpu.autoOffsets();
-  mpu.enableGyrDLPF(); // Filtro digital
-  mpu.setGyrRange(MPU9250_GYRO_RANGE_250);
-  mpu.setAccRange(MPU9250_ACC_RANGE_2G);
-  mpu.setMagOpMode(AK8963_CONT_MODE_100HZ); // Activar magnetómetro
-
-  Serial.println("MPU9250 listo.");
+  delay(1000);
 }
 
 void loop() {
-  xyzFloat angles = mpu.getAngles(); 
+  imu.update();
 
-  Serial.print("Yaw: "); Serial.print(angles.z, 2);
-  Serial.print("\tPitch: "); Serial.print(angles.x, 2);
-  Serial.print("\tRoll: "); Serial.println(angles.y, 2);
+  imu.printSensorData();
 
-  delay(100);  
+  delay(100);
 }

@@ -18,7 +18,7 @@ void MotorBLDC::move(int controlAction)
     if(controlAction > 0)
     {
         digitalWrite(Pin_Dir,COUNTERCLOCKWISE);
-        analogWrite(Pin_Pwm,abs(saturate(controlAction-10,0,PWM_MAX,PWM_MAX)));
+        analogWrite(Pin_Pwm,abs(saturate(controlAction,0,PWM_MAX,PWM_MAX)));
     }
     else if(controlAction < 0)
     {
