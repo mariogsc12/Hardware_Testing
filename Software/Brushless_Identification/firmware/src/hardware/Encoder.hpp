@@ -23,6 +23,5 @@ class Encoder
 		void count2();
 		void update();
 		float getSpeed();
-
 	};
 #endif

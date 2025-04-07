@@ -11,8 +11,9 @@ class MotorBLDC
         const int Pin_Dir;
         float position;
         float velocity;
+        
     public:
-        MotorBLDC(const int PinPwm, const int PinDir);
+        MotorBLDC(int pwmPin, int dirPin);
         void move(int controlAction);
         void initialize();
 };

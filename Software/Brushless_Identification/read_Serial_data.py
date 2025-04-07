@@ -27,12 +27,13 @@ def splitMessage(message):
     message = message.strip()
     data = message.split(',') 
 
-    if len(data) == 3:
+    if len(data) == 4:
         try:
             value1 = int(data[0])   # time  
             value2 = float(data[1]) # control_action  
             value3 = float(data[2]) # speed
-            return value1, value2, value3
+            value4 = float(data[3]) # filtered_speed
+            return value1, value2, value3, value4
         except ValueError:
             sys.exit(f"Error - Unable to convert message to numbers")
     else:
@@ -43,7 +44,8 @@ def saveData(name):
     data = {
         'time': time_data,
         'control_action': control_action_data,
-        'speed': speed_data
+        'speed': speed_data,
+        'filtered_speed': filtered_speed_data 
     }
     
     file_name = f"{name}.mat"
@@ -64,7 +66,7 @@ port = "COM4"
 baudrate = 115200
 # Path Configuration
 output_folder_name = "serialData"
-output_file_name = "serialData_7"
+output_file_name = "serialData1"
 # Time to store [seconds]
 start_time = 0
 end_time = 40
@@ -100,14 +102,15 @@ serial_device.open()
 control_action_data = []  
 speed_data = []  
 time_data = []  
+filtered_speed_data = []
 
 # Start the loop to read the message
 while True:
     if serial_device.in_waiting:
         received_message = serial_device.readline().decode('utf-8')  # Decoding the received bytes
-        time, control_action, speed = splitMessage(received_message)
+        time, control_action, speed, filtered_speed = splitMessage(received_message)
 
-        print(f"time: {time} control_action: {control_action}, speed: {speed}")
+        print(f"time: {time} control_action: {control_action}, speed: {speed}, filtered_speed: {filtered_speed}")
         
         if time / 1000 >= start_time:
             if time / 1000 == start_time:
@@ -116,11 +119,14 @@ while True:
             time_data.append(time / 1000)
             control_action_data.append(control_action)
             speed_data.append(speed)
+            filtered_speed_data.append(filtered_speed)
             
             data = {
                 'time': time_data,
                 'control_action': control_action_data,
-                'speed': speed_data
+                'speed': speed_data,
+                'filtered_speed': filtered_speed_data
+
             }
             
             scipy.io.savemat(mat_file_path, data)

@@ -5,18 +5,20 @@
 #include <config/datatypes.h>
 #include <config/definitions.h>
 
+
 MotorBLDC::MotorBLDC(const int PinPwm, const int PinDir):
             Pin_Pwm(PinPwm),
             Pin_Dir(PinDir)
 {
 }
 
+
 void MotorBLDC::move(int controlAction)
 {
     if(controlAction > 0)
     {
         digitalWrite(Pin_Dir,COUNTERCLOCKWISE);
-        analogWrite(Pin_Pwm,saturate(controlAction,0,PWM_MAX,PWM_MAX));
+        analogWrite(Pin_Pwm,abs(saturate(controlAction,0,PWM_MAX,PWM_MAX)));
     }
     else if(controlAction < 0)
     {
@@ -33,5 +35,5 @@ void MotorBLDC::move(int controlAction)
 void MotorBLDC::initialize()
 {
     pinMode(Pin_Pwm, OUTPUT);   
-    pinMode(Pin_Dir, OUTPUT);            
+    pinMode(Pin_Dir, OUTPUT);  
 }

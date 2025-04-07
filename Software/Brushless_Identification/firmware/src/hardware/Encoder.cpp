@@ -42,6 +42,7 @@ void Encoder::update()
   currentTime = millis();
   speed = ((pulses * 60.0)/(PPR*(sample_time/1000))); // RPM
   // speed = speed * (2*pi/60); // rad/s
+
   lastTime = millis();
   pulses = 0;
 }
