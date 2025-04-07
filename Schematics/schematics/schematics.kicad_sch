@@ -2681,6 +2681,441 @@
 			)
 		)
 	)
+	(global_label "LED1"
+		(shape input)
+		(at 250.19 25.4 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f5582865-42a4-4f4c-b670-82f530132b54")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 257.8318 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RX2"
+		(shape input)
+		(at 135.89 149.86 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f963d70a-b9c2-4fcd-981f-5665216e9323")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 129.2158 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ENC_A_LEFT"
+		(shape input)
+		(at 134.62 128.27 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "fc41142e-c72e-40e1-be70-79bcb2e9e5a8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 120.6282 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "mario:WT901C")
+		(at 146.05 143.51 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "021ac43d-e594-4be0-8268-258461140a27")
+		(property "Reference" "WT901C1"
+			(at 148.082 154.686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 145.415 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 146.05 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 146.05 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 146.05 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "6e6ea7db-9f86-4a73-852b-af2f7b18ee5d")
+		)
+		(pin ""
+			(uuid "5fb015ce-3b29-48bc-a2ba-d27e059812c5")
+		)
+		(pin ""
+			(uuid "681fbeae-b9d5-4a52-88d4-3a7ecf47ffdd")
+		)
+		(pin ""
+			(uuid "0470c721-6ff1-4638-b46e-c065fe33f902")
+		)
+		(instances
+			(project ""
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "WT901C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "mario:MC6RE")
+		(at 196.85 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "071288ab-b4f1-4ce0-85b6-892d29dd4701")
+		(property "Reference" "RECEIVER_MC6RE1"
+			(at 188.722 107.696 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 188.595 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 196.85 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 196.85 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 196.85 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "f01439ce-fc3b-474e-922a-b07fe9f30511")
+		)
+		(pin ""
+			(uuid "e11a3c5b-7c86-4c4d-8df9-4cf68c3444f0")
+		)
+		(pin ""
+			(uuid "177449aa-e94a-4844-b953-3ce1d9b7d8c3")
+		)
+		(pin ""
+			(uuid "0b0728e4-f070-4ee2-8926-4e53b8112d9b")
+		)
+		(pin ""
+			(uuid "ea4b7a08-94ea-488c-8ec6-429ce7b62a0c")
+		)
+		(pin ""
+			(uuid "a1a7ce83-4094-42ca-962a-01cd8067bc48")
+		)
+		(pin ""
+			(uuid "899f10a3-c8ef-409b-8ae4-e8006a164b42")
+		)
+		(pin ""
+			(uuid "8d390167-9f85-4098-98e4-976c97c5ec1a")
+		)
+		(pin ""
+			(uuid "9c80bd75-d759-483d-958a-2b7db213e291")
+		)
+		(pin ""
+			(uuid "70f7e5c8-bf4c-4702-aba2-035e5b7aa8b2")
+		)
+		(pin ""
+			(uuid "cecb347d-22e5-4d35-accc-4dcb483de081")
+		)
+		(pin ""
+			(uuid "7924ecde-7f87-4683-aa50-5f4c47e9d67b")
+		)
+		(pin ""
+			(uuid "4ddcbc61-c5bf-4775-863b-95bf25b3748c")
+		)
+		(pin ""
+			(uuid "a7dbd38d-2134-4d9a-b6a6-fb3b8f0b0096")
+		)
+		(pin ""
+			(uuid "a30fa9d5-fd03-4b14-9683-689761b44716")
+		)
+		(pin ""
+			(uuid "c4d93183-abe7-47f1-8ac1-0b72e74ee3a8")
+		)
+		(pin ""
+			(uuid "93f1eae7-9b65-4a83-a629-b3817b5823f0")
+		)
+		(pin ""
+			(uuid "4c5a786c-7496-490d-b79d-6f556978cf75")
+		)
+		(pin ""
+			(uuid "d0299b7c-2b09-419b-828f-fe7632fc6fcc")
+		)
+		(pin ""
+			(uuid "1763e481-54e7-4e9d-9f24-f44c1c1213d9")
+		)
+		(pin ""
+			(uuid "bcda0240-5970-4c97-b4cb-41ab74e6827a")
+		)
+		(instances
+			(project ""
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "RECEIVER_MC6RE1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "MOTOR_BRUSSLESS_2")
+		(lib_id "mario:MOTOR_BRUSSLESS")
+		(at 29.21 92.71 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0834975a-6193-4de6-b174-f8fd5eb5620d")
+		(property "Reference" "MOTOR_BRUSHLESS_RIGHT1"
+			(at 27.686 94.742 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 26.67 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 29.21 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 29.21 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 29.21 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "572be040-e206-4302-98de-761ecdb10dc7")
+		)
+		(pin ""
+			(uuid "a1bbb83b-04e0-4435-91b8-c1e3f704dba0")
+		)
+		(pin ""
+			(uuid "f616b0a3-c111-4f49-b9f4-461038758b4c")
+		)
+		(pin ""
+			(uuid "7c2d4954-3e70-4ced-810d-3072e3a9ddf4")
+		)
+		(pin ""
+			(uuid "98e0e811-5e1c-407f-bc63-de20e0895e89")
+		)
+		(pin ""
+			(uuid "9d1a8d51-dd06-4c4e-ab91-364b0326e312")
+		)
+		(pin ""
+			(uuid "6db4b9a7-a306-494f-8fb6-875ec63b056a")
+		)
+		(pin ""
+			(uuid "cc9fbe6f-9aa8-47ad-a5d0-338e123be096")
+		)
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "MOTOR_BRUSHLESS_RIGHT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "MOTOR_BRUSSLESS_1")
+		(lib_id "mario:MOTOR_BRUSSLESS")
+		(at 27.94 147.32 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "13760f68-427d-4184-93ce-31d4acf34325")
+		(property "Reference" "MOTOR_BRUSHLESS_LEFT1"
+			(at 26.416 149.352 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 25.4 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 27.94 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 27.94 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 27.94 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "25009e2d-595e-42fb-8423-a0a9a348e105")
+		)
+		(pin ""
+			(uuid "5b9c2980-0a31-4af8-a6b7-8357079a0cc0")
+		)
+		(pin ""
+			(uuid "6c28251c-27a0-44ef-8cb9-d16a659207ac")
+		)
+		(pin ""
+			(uuid "5e605061-e920-4efe-b9a4-31ffd475bc46")
+		)
+		(pin ""
+			(uuid "b3918356-3e5e-477e-b494-b903491064aa")
+		)
+		(pin ""
+			(uuid "2f36a8b4-0ca3-4de4-8369-6015aee40e4a")
+		)
+		(pin ""
+			(uuid "ad1fcc56-12a6-4cab-9816-25d86f937cb2")
+		)
+		(pin ""
+			(uuid "15af0100-7509-4c2b-9702-ba00bcd50126")
+		)
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "MOTOR_BRUSHLESS_LEFT1")
+					(unit 1)
+				)
+			)
+		)
+	)
 	(symbol
 		(lib_id "ESP32-S3-DEVKITC-1-N8R2:ESP32-S3-DEVKITC-1-N16R8")
 		(at 190.5 57.15 0)
@@ -2995,9 +3430,10 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1f5e56f7-094a-4705-89c1-0213186dd9ac")
-		(property "Reference" "MOTOR_LEFT"
-			(at 35.306 80.01 0)
+		(fields_autoplaced yes)
+		(uuid "23083349-3533-4dbd-bfc2-e4407940744e")
+		(property "Reference" "#PWR09"
+			(at 189.23 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3039,11 +3475,72 @@
 				(hide yes)
 			)
 		)
-		(pin ""
-			(uuid "7a3fab41-b382-4157-a11c-a5874b23d559")
+		(pin "1"
+			(uuid "a741798a-67b7-4435-a806-4a09a5fd9d86")
 		)
-		(pin ""
-			(uuid "dbd2a5dd-7376-48ce-99dc-aa43baf6bbc3")
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:Earth")
+		(at 127 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3798ae05-023b-474a-9c85-e2fc247af5f8")
+		(property "Reference" "#PWR04"
+			(at 127 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "Earth"
+			(at 127 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 127 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 127 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"Earth\""
+			(at 127 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin ""
 			(uuid "33f46442-0c1a-4e42-9d0f-5bf41d86be6d")
@@ -3051,7 +3548,7 @@
 		(instances
 			(project "schematics"
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "MOTOR_LEFT")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -3065,9 +3562,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "25a7ef6e-e7f1-401a-84b6-b1c46ebba5d4")
-		(property "Reference" "MOTOR_RIGHT"
-			(at 35.306 64.77 0)
+		(uuid "37f5df93-f534-422e-b3a7-e928963a2df4")
+		(property "Reference" "E6B2-CWZ6C_RIGHT"
+			(at 141.224 119.634 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3121,7 +3618,7 @@
 		(instances
 			(project ""
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "MOTOR_RIGHT")
+					(reference "E6B2-CWZ6C_RIGHT")
 					(unit 1)
 				)
 			)
@@ -3136,9 +3633,9 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3798ae05-023b-474a-9c85-e2fc247af5f8")
-		(property "Reference" "#PWR04"
-			(at 115.57 38.1 0)
+		(uuid "3c4985fc-ff91-471c-a1bf-c235cc51f83c")
+		(property "Reference" "#PWR08"
+			(at 90.17 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3188,7 +3685,86 @@
 		(instances
 			(project "schematics"
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "#PWR04")
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 259.08 120.65 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4c00da23-5b68-4b74-b46c-d333ecddb86a")
+		(property "Reference" "LED3"
+			(at 262.89 120.9674 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BLUE"
+			(at 262.89 123.5074 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 259.08 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 259.08 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 259.08 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 259.08 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "463040bf-4d0d-4eb4-9fe7-74d2ea45b325")
+		)
+		(pin "1"
+			(uuid "fb8eb5b3-5ed9-4e1e-96ab-88892e64c8d1")
+		)
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "LED3")
 					(unit 1)
 				)
 			)
@@ -3205,7 +3781,7 @@
 		(fields_autoplaced yes)
 		(uuid "4f8db94e-2350-419d-9204-bb55abe5f94a")
 		(property "Reference" "#PWR02"
-			(at 165.1 86.36 0)
+			(at 139.7 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3254,7 +3830,7 @@
 		(instances
 			(project "schematics"
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "#PWR02")
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -3287,7 +3863,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 29.21 0)
+			(at 78.74 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3335,6 +3911,73 @@
 		)
 	)
 	(symbol
+		(lib_id "power:Earth")
+		(at 246.38 133.35 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "64b4f0e9-04c2-4d4a-9a96-342c083819b1")
+		(property "Reference" "#PWR012"
+			(at 246.38 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "Earth"
+			(at 246.38 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"Earth\""
+			(at 246.38 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8f59f88c-2410-4ac4-991e-ca3e2434523f")
+		)
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "#PWR012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:Fuse")
 		(at 57.15 29.21 90)
 		(unit 1)
@@ -3361,7 +4004,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 57.15 30.988 90)
+			(at 55.88 30.988 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3410,9 +4053,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "743a1c03-8e14-458b-85f3-97ac2e32d1e9")
-		(property "Reference" "E6B2-CWZ6C_RIGHT"
-			(at 101.6 63.754 0)
+		(uuid "7a2cf3b3-610d-4cdb-95b1-884026ba5d02")
+		(property "Reference" "ZS-X1_LEFT"
+			(at 77.47 148.844 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3474,7 +4117,7 @@
 		(instances
 			(project ""
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "E6B2-CWZ6C_RIGHT")
+					(reference "ZS-X1_LEFT")
 					(unit 1)
 				)
 			)
@@ -3489,9 +4132,10 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "a79a80f7-1185-470f-a646-8f2d0de11f4c")
-		(property "Reference" "E6B2-CWZ6C_LEFT"
-			(at 101.092 81.534 0)
+		(fields_autoplaced yes)
+		(uuid "7ad7e7a1-0195-402e-896c-42d3e67647b3")
+		(property "Reference" "CON_BAT"
+			(at 33.528 25.146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3500,7 +4144,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 116.84 74.93 0)
+			(at 31.75 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3509,7 +4153,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 110.49 66.04 0)
+			(at 35.56 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3539,7 +4183,147 @@
 			(uuid "1c4f5fb7-e93c-42ed-9d28-3d8bed32525d")
 		)
 		(pin ""
-			(uuid "69a83fe2-9623-410a-bbe2-5254f2d0cc6e")
+			(uuid "57de6d6b-9a6a-4f03-a4f5-9f93e6b9f27f")
+		)
+		(instances
+			(project ""
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "CON_BAT")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 232.41 120.65 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a264f543-1b3b-428b-a5c5-ccf08ae7a937")
+		(property "Reference" "LED1"
+			(at 236.22 120.9674 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "GREEN"
+			(at 236.22 123.5074 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 232.41 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 232.41 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 232.41 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 232.41 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "bdf6cfe8-2caf-4d7b-abaf-ec51ac0855dd")
+		)
+		(pin "1"
+			(uuid "21c88067-e8f5-48de-8ec4-29d7f9ed4fb5")
+		)
+		(instances
+			(project ""
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "LED1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "mario:SEN0291")
+		(at 78.74 39.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c12012f3-06c9-44f4-a45c-66aea3323f74")
+		(property "Reference" "SEN0291"
+			(at 80.772 54.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 80.645 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 78.74 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 78.74 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 78.74 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
 		(pin ""
 			(uuid "f21d6363-17d3-4b8c-b4cc-1cd8da9f0d7c")
@@ -3640,9 +4424,10 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ca6e753a-8295-45d3-ae1f-9f06bf36d7a6")
-		(property "Reference" "CON_BAT"
-			(at 35.052 36.068 0)
+		(fields_autoplaced yes)
+		(uuid "c21f0614-6408-4013-9a70-da98a7aea439")
+		(property "Reference" "#PWR010"
+			(at 60.96 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3693,7 +4478,7 @@
 		(instances
 			(project ""
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "CON_BAT")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -3708,9 +4493,9 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "e382e349-e923-45cb-9d2e-4d7d8fe969b0")
-		(property "Reference" "#PWR01"
-			(at 46.99 38.1 0)
+		(uuid "cbbf3e7b-7269-4b16-bdb0-aa5cc8d7ee65")
+		(property "Reference" "#PWR07"
+			(at 140.97 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3760,7 +4545,7 @@
 		(instances
 			(project ""
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "#PWR01")
+					(reference "#PWR07")
 					(unit 1)
 				)
 			)
@@ -3775,9 +4560,9 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "f884b73c-908b-45c4-985c-4ceb7bc52630")
+		(uuid "ccd88c99-0680-4467-89c7-e260da662ed5")
 		(property "Reference" "#PWR06"
-			(at 93.98 77.47 0)
+			(at 168.91 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3827,7 +4612,86 @@
 		(instances
 			(project "schematics"
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "#PWR06")
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 246.38 120.65 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d2951d3f-380e-4ac2-b819-6e4aba7c99d8")
+		(property "Reference" "LED2"
+			(at 250.19 120.9674 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "RED"
+			(at 250.19 123.5074 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 246.38 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 246.38 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "f0b2ab77-028a-4791-9909-705a0d672ed0")
+		)
+		(pin "1"
+			(uuid "24d6ad9e-0369-4e0a-825a-1cf42cbf8a40")
+		)
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "LED2")
 					(unit 1)
 				)
 			)
@@ -3842,9 +4706,155 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "fd3f33b9-75d9-42fe-9674-c468423d0af7")
+		(uuid "d6a44e52-28e3-446e-8ed1-c2472dfde684")
+		(property "Reference" "#PWR011"
+			(at 60.96 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "Earth"
+			(at 60.96 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 60.96 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 60.96 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"Earth\""
+			(at 60.96 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "571f83e0-15c8-4aa9-98a7-f5a07d140eb3")
+		)
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "E6B2-CWZ6C_1")
+		(lib_id "mario:E6B2-CWZ6C")
+		(at 147.32 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d82388ac-f3ad-4c58-b341-d1fa629d26d9")
+		(property "Reference" "E6B2-CWZ6C_LEFT"
+			(at 141.224 138.684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 156.21 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 147.32 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "4caebf21-b77b-4db6-8079-10e83b516788")
+		)
+		(pin ""
+			(uuid "4b50bfc2-3702-4ed1-bb71-0899adb92117")
+		)
+		(pin ""
+			(uuid "1f0ac045-86bb-4ef7-8984-9772e763855f")
+		)
+		(pin ""
+			(uuid "ed3ff068-21d1-446b-b3bd-1ad18cee0de4")
+		)
+		(pin ""
+			(uuid "c1e1b6d4-1880-488c-9243-f867af6bd289")
+		)
+		(instances
+			(project "schematics"
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "E6B2-CWZ6C_LEFT")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:Earth")
+		(at 139.7 135.89 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dc3e05d1-0c5a-487d-a144-6d2682060a92")
 		(property "Reference" "#PWR05"
-			(at 93.98 59.69 0)
+			(at 139.7 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3894,7 +4904,131 @@
 		(instances
 			(project "schematics"
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "#PWR05")
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "mario:ZS-X11")
+		(at 87.63 92.71 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f3694385-acfe-4529-8ef9-af00eca3ebd8")
+		(property "Reference" "ZS-X11_RIGHT"
+			(at 78.994 94.234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 78.105 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 87.63 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 87.63 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 87.63 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "0e03a826-1b43-4199-b045-89ee74f384fb")
+		)
+		(pin ""
+			(uuid "bda37b05-3153-4d66-8c6d-3a113a353010")
+		)
+		(pin ""
+			(uuid "366c1b8e-9783-4a54-be49-7ee74233b599")
+		)
+		(pin ""
+			(uuid "d57cdfde-52a3-48a8-943a-2a01218a92c6")
+		)
+		(pin ""
+			(uuid "dbf7db7a-c047-4b75-99cb-35001c97305e")
+		)
+		(pin ""
+			(uuid "018ae042-77e0-4a5c-a393-bd8b521b043c")
+		)
+		(pin ""
+			(uuid "e3b85e4a-03a9-458c-babd-02e85b1af06a")
+		)
+		(pin ""
+			(uuid "ad1721de-6988-4c9a-8c91-743cb9a2ef86")
+		)
+		(pin ""
+			(uuid "1ad3cf60-0f2f-45d7-a66b-c04ef91d7fef")
+		)
+		(pin ""
+			(uuid "cf223fac-bcba-4fc1-b0f0-4bfd983e9397")
+		)
+		(pin ""
+			(uuid "bccbf79b-6c11-41e7-bc94-67556c204f77")
+		)
+		(pin ""
+			(uuid "365dd98f-c2b6-406d-a81f-426b0f9a1847")
+		)
+		(pin ""
+			(uuid "3db26e3a-5e8b-45e6-89ee-14adb6f98c34")
+		)
+		(pin ""
+			(uuid "653067ce-8a74-423c-9ab9-a6c4f05b053f")
+		)
+		(pin ""
+			(uuid "8e4732d8-5d34-4d43-89c4-6a3e5ae95687")
+		)
+		(pin ""
+			(uuid "bc0e3300-c0c5-4581-88a2-3725b36a714d")
+		)
+		(pin ""
+			(uuid "2e580e0c-e1c8-4f3d-8026-fdc27d9a3bb1")
+		)
+		(pin ""
+			(uuid "efa68b3b-7ce6-40c1-b99b-eeefbeadd192")
+		)
+		(pin ""
+			(uuid "4dd00d64-e94a-469c-8fa8-1e4ecea3ee8e")
+		)
+		(pin ""
+			(uuid "b945ed18-6ad8-4937-a58f-226ddc805e00")
+		)
+		(pin ""
+			(uuid "0560c04a-350f-4719-946e-5770ba33ce3a")
+		)
+		(instances
+			(project ""
+				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
+					(reference "ZS-X11_RIGHT")
 					(unit 1)
 				)
 			)
@@ -3911,7 +5045,7 @@
 		(fields_autoplaced yes)
 		(uuid "fd627af5-748c-471c-ac89-1c49eab980d2")
 		(property "Reference" "#PWR03"
-			(at 90.17 38.1 0)
+			(at 101.6 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3961,7 +5095,7 @@
 		(instances
 			(project "schematics"
 				(path "/29c96457-b859-4d59-aaa2-52833e6eb6f5"
-					(reference "#PWR03")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
