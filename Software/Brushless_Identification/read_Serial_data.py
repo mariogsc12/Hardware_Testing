@@ -66,10 +66,10 @@ port = "COM4"
 baudrate = 115200
 # Path Configuration
 output_folder_name = "serialData"
-output_file_name = "serialData1"
+output_file_name = "serialDataFilteredSpeed2"
 # Time to store [seconds]
 start_time = 0
-end_time = 40
+end_time = 20
 # ----  ----
 
 # Get the directory where the script is located

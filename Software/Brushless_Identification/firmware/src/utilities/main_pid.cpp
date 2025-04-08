@@ -10,56 +10,67 @@
 
 const int sample_time = 20;
 Metro sampleTime(sample_time);
-//ButterworthFilter speed_filter({b0, b1, b2}, {a1, a2});
+ButterworthFilter speed_filter({b0, b1, b2}, {a1, a2});
 
 // Variables PID
-
+/*
 volatile float feedback = 0.00;
 float P = 0.00, I = 0.00, D = 0.00;
 float error = 0.00, prevErr = 0.00;
-float errSum = 0.00, maxSum = 10;
+float errSum = 0.00, maxSum = 200;
 float pid = 0.00;
 //float maxSum;
-
-
+*/
+/*
 int8_t control_action = 0;
 int elapsed_time = 0;
 float speed = 0;
 float filteredSpeed=0;
 int start_time = 0;
 String message;
-
-float PID();
-
-
-float kp = 1.5, ki = 3, kd = 0.02;
-float target = 40, controlAction_MaxValue = 60;
-float maxOutput = controlAction_MaxValue;
-
-
-MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR);
-Encoder encoder_left(PIN_ENCODER_LEFT_A,PIN_ENCODER_LEFT_B,2500*3.9*4,sample_time);
 */
+//float PID();
 
 /*
+float kp = 1.5, ki = 3, kd = 0.02;
+float target, controlAction_MaxValue = 100;
+float maxOutput = controlAction_MaxValue;
+*/
+/*
+MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR);
+Encoder encoder_left(PIN_ENCODER_LEFT_A,PIN_ENCODER_LEFT_B,2500*3.9*4,sample_time);
+
+
+*/
+/*
+
 int setControlAction(int time){
   int time_sec = time / 1000;
 
-  if(time_sec <= 5)return 10;
-  else if(time_sec >5 && time_sec <= 10)return 10;
-  else if(time_sec > 10 && time_sec <= 15)return 10;
-  else if(time_sec > 15 && time_sec <= 20)return 10;
-  else if(time_sec > 20 && time_sec <= 25)return 30;
-  else if(time_sec > 25 && time_sec <= 30)return 30;
-  else if(time_sec > 30 && time_sec <= 35)return 30;
-  else if(time_sec > 35 && time_sec <= 40)return 30;
-  //else if(time_sec > 40 && time_sec <= 45)return -5;
-  //else if(time_sec > 45 && time_sec <= 50)return -5;
-  //else if(time_sec > 50 && time_sec <= 55)return -5;
-  //else if(time_sec > 55 && time_sec <= 60)return -5;
+  if(time_sec <= 5)return 20;
+  else if(time_sec >5 && time_sec <= 10)return 20;
+  else if(time_sec > 10 && time_sec <= 15)return 40;
+  else if(time_sec > 15 && time_sec <= 20)return 40;
+  //else if(time_sec > 20 && time_sec <= 25)return -20;
+  //else if(time_sec > 25 && time_sec <= 30)return -10;
+  //else if(time_sec > 30 && time_sec <= 35)return 0;
+  //else if(time_sec > 35 && time_sec <= 40)return 10;
+  //else if(time_sec > 40 && time_sec <= 45)return 20;
+  //else if(time_sec > 45 && time_sec <= 50)return 30;
+  //else if(time_sec > 50 && time_sec <= 55)return 40;
+  //else if(time_sec > 55 && time_sec <= 60)return 50;
+  //else if(time_sec > 60 && time_sec <= 65)return 60;
   else return 0;
 }
-  */
+*/
+/*
+float setTarget(int time){
+  int time_sec = time / 1000;
+  if(time_sec <= 10)return 50;
+  else if(time_sec >10 && time_sec <= 20)return 60;
+  else return 60;
+}
+*/
 /*
 void encoderCount_1() { encoder_left.count1();}
 void encoderCount_2() { encoder_left.count2();}
@@ -76,41 +87,48 @@ void setup()
     
     start_time = millis();
 }
-
+    */
+/*
 void loop() 
 {
   if(sampleTime.check()==1)
   { 
     //Para controlar con accion de control
-    //elapsed_time = millis() - start_time;
-    //control_action=setControlAction(elapsed_time);
-    //motor_left.move(control_action);
+    elapsed_time = millis() - start_time;
+    control_action=setControlAction(elapsed_time);
+    motor_left.move(control_action);
 
-    encoder_left.update();
-    speed = encoder_left.getSpeed();
+    /*
+    elapsed_time = millis() - start_time;
+    target=setTarget(elapsed_time);
+    */
+
+    //encoder_left.update();
+    //speed = encoder_left.getSpeed();
     //filteredSpeed=speed_filter.update(speed);
 
     //feedback = filteredSpeed;
-    
+    /*
     if (millis() - start_time < 1000) {
         feedback = speed;
       } else {
         feedback = filteredSpeed;
       }
-
+*/
 
     // Calcular control PID
     
-    pid = PID();
-    pid = constrain(pid, -controlAction_MaxValue, controlAction_MaxValue);
+    //pid = PID();
+    //pid = constrain(pid, -controlAction_MaxValue, controlAction_MaxValue);
     
 
-    motor_left.move(pid);
+    //motor_left.move(pid);
 
     
-    Serial.print("Control_action: "); Serial.print(pid);
-    Serial.print(" - Setpoint: "); Serial.print(target);
-    Serial.print(" - Speed: "); Serial.println(feedback);
+    //Serial.print("Control_action: "); Serial.print(pid);
+    //Serial.print(" - Setpoint: "); Serial.print(target);
+    //Serial.print(" - Speed: "); Serial.println(speed);
+    //Serial.print(" - Filtered Speed: "); Serial.println(feedback);
     
 
     //data = String(control_action) + "," + String(speed);
@@ -123,9 +141,10 @@ void loop()
 
     //message = String(millis()) +"," + String(control_action) + "," + String(speed) + "," + String(filteredSpeed);
     //Serial.println(message);
-  }
-}
+ // }
+//}
 
+/*
 float PID() {
     error = target - feedback;
 
