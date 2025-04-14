@@ -16,11 +16,18 @@ float mx = 0, my = 0, mz = 0;
 float roll = 0, pitch = 0, yawSensor = 0;
 float yawMag = 0;
 
+// Offsets para calibración
+float rollOffset = 0, pitchOffset = 0, yawSensorOffset = 0, yawMagOffset = 0;
+bool calibrated = false;
+unsigned long calibrationStart = 0;
+
 void setup() {
   Serial.begin(115200);
   Serial2.begin(BAUD_SENSOR, SERIAL_8N1, UART_RX, UART_TX);
   delay(300);
-  Serial.println("WT901C-TTL conected. Showing data...");
+  Serial.println("✅ WT901C-TTL conectado.");
+  Serial.println("⏳ Esperando calibración automática en 5 segundos...");
+  calibrationStart = millis();
 }
 
 void loop() {
@@ -65,11 +72,10 @@ void loop() {
           my = myRaw * 1.0f;
           mz = mzRaw * 1.0f;
 
-          // Calcular Yaw con magnetómetro directamente
           yawMag = atan2(my, mx) * 180.0f / PI;
           if (yawMag < 0) yawMag += 360.0f;
 
-        } else if (id == 0x53) { // Ángulos (sensor)
+        } else if (id == 0x53) { // Ángulos
           int16_t rollRaw  = (int16_t)(buffer[3] << 8 | buffer[2]);
           int16_t pitchRaw = (int16_t)(buffer[5] << 8 | buffer[4]);
           int16_t yawRaw   = (int16_t)(buffer[7] << 8 | buffer[6]);
@@ -79,14 +85,34 @@ void loop() {
           yawSensor = yawRaw / 32768.0f * 180.0f;
           if (yawSensor < 0) yawSensor += 360.0f;
 
-          // Mostrar todo solo una vez por ciclo (cuando llegan los ángulos)
-          Serial.println(" Meassures:");
-          Serial.printf(" Angle -> Roll: %.2f°, Pitch: %.2f°, Yaw (sensor): %.2f°\n", roll, pitch, yawSensor);
-          Serial.printf(" Aceleration -> ax: %.2fg, ay: %.2fg, az: %.2fg\n", ax, ay, az);
-          Serial.printf(" Gyro -> gx: %.2f°/s, gy: %.2f°/s, gz: %.2f°/s\n", gx, gy, gz);
-          Serial.printf(" Magnetometer → mx: %.0f, my: %.0f, mz: %.0f\n", mx, my, mz);
-          Serial.printf(" Yaw (magnetometer): %.2f°\n", yawMag);
-          Serial.println("--------------------------------------------------");
+          // Calibrar después de 5 segundos
+          if (!calibrated && millis() - calibrationStart >= 5000) {
+            rollOffset = roll;
+            pitchOffset = pitch;
+            yawSensorOffset = yawSensor;
+            yawMagOffset = yawMag;
+            calibrated = true;
+            Serial.println("✅ Calibración realizada. Ángulos relativos:");
+          }
+
+          if (calibrated) {
+            float rollRel = roll - rollOffset;
+            float pitchRel = pitch - pitchOffset;
+            float yawSensorRel = yawSensor - yawSensorOffset;
+            float yawMagRel = yawMag - yawMagOffset;
+
+            // Normalizar yaw entre 0–360
+            if (yawSensorRel < 0) yawSensorRel += 360;
+            if (yawMagRel < 0) yawMagRel += 360;
+
+            // Mostrar datos
+            Serial.println("📊 Datos IMU:");
+            Serial.printf("Roll: %.2f° | Pitch: %.2f° | Yaw (sensor): %.2f° | Yaw (mag): %.2f°\n", rollRel, pitchRel, yawSensorRel, yawMagRel);
+            //Serial.printf("Gyro: gx=%.2f°/s, gy=%.2f°/s, gz=%.2f°/s\n", gx, gy, gz);
+            //Serial.printf("Acc: ax=%.2fg, ay=%.2fg, az=%.2fg\n", ax, ay, az);
+            //Serial.printf("Mag: mx=%.0f, my=%.0f, mz=%.0f\n", mx, my, mz);
+            Serial.println("--------------------------------------------------");
+          }
         }
       }
     }
