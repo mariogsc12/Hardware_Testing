@@ -16,7 +16,7 @@ WT901CTTL     ESP32 Dev Module
 
 
 #define RXD2 16
-#define TXD2 17
+#define TXD2 15
 
 #define ACC_UPDATE    0x01
 #define GYRO_UPDATE   0x02

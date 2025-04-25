@@ -20,8 +20,8 @@ void setup() {
   pinMode(23,INPUT);
   pinMode(22,INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(23), encoderCount_1, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(22), encoderCount_2, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(45), encoderCount_1, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(21), encoderCount_2, CHANGE);
 }
 
 void loop() {

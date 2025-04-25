@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <math.h>
 
-#define UART_RX 17
+#define UART_RX 15
 #define UART_TX 16
 #define BAUD_SENSOR 9600
 

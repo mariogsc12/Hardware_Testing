@@ -27,7 +27,7 @@ float kp = 2, ki = 0.25, kd = 0.25;
 float target=0.0, controlAction_MaxValue = 100;
 float maxOutput = controlAction_MaxValue;
 
-MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_STOP);
+MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_BRAKE);
 Encoder encoder_left(PIN_ENCODER_LEFT_A, PIN_ENCODER_LEFT_B, 2500 * 3.9 * 4, sample_time);
 
 IMU imu;

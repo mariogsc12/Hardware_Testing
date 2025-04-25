@@ -1,3 +1,4 @@
+
 #include <Arduino.h>
 //#include <MainProgram.h>
 #include <hardware/MotorBLDC.hpp>
@@ -23,7 +24,8 @@ float pid = 0.00;
 
 int8_t control_action = 0;
 int elapsed_time = 0;
-float speed = 0;
+float speed_left = 0;
+float speed_right=0;
 float filteredSpeed=0;
 int start_time = 0;
 String message;
@@ -36,18 +38,22 @@ float target, controlAction_MaxValue = 100;
 float maxOutput = controlAction_MaxValue;
 */
 
-MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_STOP);
+
+MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_BRAKE);
 Encoder encoder_left(PIN_ENCODER_LEFT_A,PIN_ENCODER_LEFT_B,2500*3.9*4,sample_time);
+
+MotorBLDC motor_right(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, PIN_MOTOR_RIGHT_BRAKE);
+Encoder encoder_right(PIN_ENCODER_RIGHT_A,PIN_ENCODER_RIGHT_B,2500*3.9*4,sample_time);
 
 int setControlAction(int time){
   int time_sec = time / 1000;
 
-  if(time_sec <= 5)return -60;
-  else if(time_sec >5 && time_sec <= 10)return -60;
+  if(time_sec <= 5)return -15;
+  else if(time_sec >5 && time_sec <= 10)return -20;
   else if(time_sec > 10 && time_sec <= 15)return 10;
   else if(time_sec > 15 && time_sec <= 20)return 10;
-  else if(time_sec > 20 && time_sec <= 25)return 50;
-  else if(time_sec > 25 && time_sec <= 30)return 50;
+  else if(time_sec > 20 && time_sec <= 25)return 30;
+  else if(time_sec > 25 && time_sec <= 30)return 25;
   //else if(time_sec > 30 && time_sec <= 35)return 10;
   //else if(time_sec > 35 && time_sec <= 40)return 10;
   //else if(time_sec > 40 && time_sec <= 45)return 20;
@@ -67,8 +73,11 @@ float setTarget(int time){
 }
 */
 
-void encoderCount_1() { encoder_left.count1();}
-void encoderCount_2() { encoder_left.count2();}
+void encoderCount_left_1() { encoder_left.count1();}
+void encoderCount_left_2() { encoder_left.count2();}
+
+void encoderCount_right_1() { encoder_right.count1();}
+void encoderCount_right_2() { encoder_right.count2();}
 
 void setup() 
 {
@@ -77,12 +86,18 @@ void setup()
     motor_left.initialize();
     encoder_left.initialize();
 
-    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_A), encoderCount_1, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_B), encoderCount_2, CHANGE);
+    motor_right.initialize();
+    encoder_right.initialize();
+
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_A), encoderCount_left_1, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_B), encoderCount_left_2, CHANGE);
+
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_RIGHT_A), encoderCount_right_1, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_RIGHT_B), encoderCount_right_2, CHANGE);
     
     start_time = millis();
 }
-    
+
 void loop() 
 {
   if(sampleTime.check()==1)
@@ -91,15 +106,19 @@ void loop()
     elapsed_time = millis() - start_time;
     control_action=setControlAction(elapsed_time);
     motor_left.move(control_action);
+    motor_right.move(control_action);
 
-    /*
-    elapsed_time = millis() - start_time;
-    target=setTarget(elapsed_time);
-    */
+    
+    //elapsed_time = millis() - start_time;
+    //target=setTarget(elapsed_time);
+    
 
     encoder_left.update();
-    speed = encoder_left.getSpeed();
-    filteredSpeed=speed_filter.update(speed);
+    encoder_right.update();
+    speed_left = encoder_left.getSpeed();
+    speed_right = encoder_right.getSpeed();
+
+    //filteredSpeed=speed_filter.update(speed);
 
     //feedback = filteredSpeed;
     /*
@@ -133,10 +152,14 @@ void loop()
     //Serial.print(" - speed: ");Serial.println(speed);
     //Serial.print(" - filtered_speed: ");Serial.println(filtered_speed);
 
-    message = String(millis()) +"," + String(control_action) + "," + String(speed) + "," + String(filteredSpeed);
+    //message = String(millis()) +"," + String(control_action) + "," + String(speed) + "," + String(filteredSpeed);
+    //Serial.println(message);
+
+    message = String(millis()) +"," + String(control_action) + "," + String(speed_left) + "," + String(speed_right);
     Serial.println(message);
   }
 }
+
 
 /*
 float PID() {
