@@ -3,3 +3,7 @@
 
 # Ignorar la carpeta .vscode
 .vscode/
+
+# Ignorar la carpeta Results
+*Results/
+*Results
