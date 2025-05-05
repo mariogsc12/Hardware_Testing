@@ -1,51 +1,89 @@
 #include <Arduino.h>
+#include <hardware/MotorBLDC.hpp>
+#include <hardware/Encoder.hpp>
+#include <hardware/IMU.hpp>
+#include <hardware/Receiver.hpp>
+//#include <hardware/Wattmeter.hpp>
+#include <config/definitions.h>
+#include <config/pinout.h>
+#include <utilities/Metro.h>
+#include <utilities/Butterworth_Filter.hpp>
 
-// Pines de los canales
-const int ch1Pin = 12;  
-const int ch2Pin = 13;  
-const int ch3Pin = 14;  
 
-// Últimos valores guardados para comparar
-uint32_t lastCh1 = 1500;
-uint32_t lastCh2 = 1500;
-uint32_t lastCh3 = 1500;
+const int sample_time = 20;
+Metro sampleTime(sample_time);
 
-// Umbral para detectar movimiento
-const int movementThreshold = 20; // microsegundos
+int start_time = 0;
+String message;
+float speed_left = 0;
+float speed_right=0;
 
-void setup() {
-  Serial.begin(115200);
+MotorBLDC motor_left(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, PIN_MOTOR_LEFT_BRAKE);
+Encoder encoder_left(PIN_ENCODER_LEFT_A,PIN_ENCODER_LEFT_B,2500*3.9*4,sample_time);
 
-  pinMode(ch1Pin, INPUT);
-  pinMode(ch2Pin, INPUT);
-  pinMode(ch3Pin, INPUT);
+MotorBLDC motor_right(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, PIN_MOTOR_RIGHT_BRAKE);
+Encoder encoder_right(PIN_ENCODER_RIGHT_A,PIN_ENCODER_RIGHT_B,2500*3.9*4,sample_time);
 
-  Serial.println("Sistema iniciado: esperando movimiento de joystick...");
+//IMU imu(Serial2, PIN_IMU_RX, PIN_IMU_TX);
+
+//Wattmeter wattmeter(PIN_WATT_SDA, PIN_WATT_SCL);
+
+Receiver receiver(PIN_RADIO_CH1, PIN_RADIO_CH3, PIN_RADIO_CH5);
+
+void encoderCount_1() { encoder_left.count1(); }
+void encoderCount_2() { encoder_left.count2(); }
+
+void encoderCount_right_1() { encoder_right.count1();}
+void encoderCount_right_2() { encoder_right.count2();}
+
+void setup() 
+{
+    Serial.begin(115200);
+
+    // Inicializar motores y encoders
+    motor_left.initialize();
+    encoder_left.initialize();
+
+    motor_right.initialize();
+    encoder_right.initialize();
+
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_A), encoderCount_1, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_LEFT_B), encoderCount_2, CHANGE);
+
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_RIGHT_A), encoderCount_right_1, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIN_ENCODER_RIGHT_B), encoderCount_right_2, CHANGE);
+
+    //Inicializar IMU
+    //imu.begin();
+
+    //Inicialización receiver
+    receiver.begin();
+
+    start_time = millis();
 }
 
 void loop() {
-  // Leer el pulso actual de cada canal
-  uint32_t ch1PulseWidth = pulseIn(ch1Pin, HIGH, 25000); // Timeout 25ms
-  uint32_t ch2PulseWidth = pulseIn(ch2Pin, HIGH, 25000);
-  uint32_t ch3PulseWidth = pulseIn(ch3Pin, HIGH, 25000);
+  if (sampleTime.check() == 1) {
 
-  // Comprobar movimiento en Canal 1
-  if (abs((int32_t)(ch1PulseWidth - lastCh1)) > movementThreshold) {
-    Serial.println("¡Movimiento detectado en Canal 1!");
-    lastCh1 = ch1PulseWidth;
+    // Leer señal del receptor
+    receiver.update();
+    int16_t throttle = receiver.getThrottle();  // -1000 a 1000
+
+    // Escalar a -100 a 100 (PWM)
+    int control_signal = map(throttle, -1000, 1000, -100, 100);
+    int control_signal = map(throttle, -1000, 1000, -100, 100);
+    if (abs(control_signal) < 10) control_signal = 0;
+
+    // Mover ambos motores en la misma dirección
+    motor_left.move(control_signal);
+    motor_right.move(control_signal);
+
+    // Opcional: imprimir información para depuración
+    Serial.print("Throttle: ");
+    Serial.print(throttle);
+    Serial.print(" -> PWM: ");
+    Serial.println(control_signal);
   }
-
-  // Comprobar movimiento en Canal 2
-  if (abs((int32_t)(ch2PulseWidth - lastCh2)) > movementThreshold) {
-    Serial.println("¡Movimiento detectado en Canal 2!");
-    lastCh2 = ch2PulseWidth;
-  }
-
-  // Comprobar movimiento en Canal 3
-  if (abs((int32_t)(ch3PulseWidth - lastCh3)) > movementThreshold) {
-    Serial.println("¡Movimiento detectado en Canal 3!");
-    lastCh3 = ch3PulseWidth;
-  }
-
-  delay(50); // Pequeño retardo para estabilizar
 }
+
+
