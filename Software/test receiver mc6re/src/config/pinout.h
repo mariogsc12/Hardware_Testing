@@ -31,9 +31,9 @@
 #define PIN_IMU_RX 15
 
 // RADIO
-#define PIN_RADIO_CH1 12 // Joystick izquierda delante/detras
+#define PIN_RADIO_CH1 13 // Joystick izquierda delante/detras
 #define PIN_RADIO_CH2 // Joystick derecha delante/detras
-#define PIN_RADIO_CH3 13 // Joystick derecha lados
+#define PIN_RADIO_CH3 12 // Joystick derecha lados
 #define PIN_RADIO_CH4  // Joystick izquierda lados
 #define PIN_RADIO_CH5 14
 #define PIN_RADIO_CH6 

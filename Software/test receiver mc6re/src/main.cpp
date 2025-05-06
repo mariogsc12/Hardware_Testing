@@ -3,7 +3,7 @@
 #include <hardware/Encoder.hpp>
 #include <hardware/IMU.hpp>
 #include <hardware/Receiver.hpp>
-//#include <hardware/Wattmeter.hpp>
+#include <hardware/Wattmeter.hpp>
 #include <config/definitions.h>
 #include <config/pinout.h>
 #include <utilities/Metro.h>
@@ -71,12 +71,11 @@ void loop() {
 
     // Escalar a -100 a 100 (PWM)
     int control_signal = map(throttle, -1000, 1000, -100, 100);
-    int control_signal = map(throttle, -1000, 1000, -100, 100);
     if (abs(control_signal) < 10) control_signal = 0;
 
     // Mover ambos motores en la misma dirección
     motor_left.move(control_signal);
-    motor_right.move(control_signal);
+    motor_right.move(-control_signal);
 
     // Opcional: imprimir información para depuración
     Serial.print("Throttle: ");

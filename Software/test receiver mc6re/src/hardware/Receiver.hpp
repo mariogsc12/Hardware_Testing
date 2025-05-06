@@ -1,5 +1,5 @@
-#ifndef RECEIVER.HPP
-#define RECEIVER.HPP
+#ifndef RECEIVER_HPP
+#define RECEIVER_HPP
 
 #include <Arduino.h>
 
