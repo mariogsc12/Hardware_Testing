@@ -48,20 +48,20 @@ Encoder encoder_right(PIN_ENCODER_RIGHT_A,PIN_ENCODER_RIGHT_B,2500*3.9*4,sample_
 int setControlAction(int time){
   int time_sec = time / 1000;
 
-  if(time_sec <= 5)return -15;
-  else if(time_sec >5 && time_sec <= 10)return -20;
-  else if(time_sec > 10 && time_sec <= 15)return 10;
-  else if(time_sec > 15 && time_sec <= 20)return 10;
-  else if(time_sec > 20 && time_sec <= 25)return 30;
-  else if(time_sec > 25 && time_sec <= 30)return 25;
-  //else if(time_sec > 30 && time_sec <= 35)return 10;
-  //else if(time_sec > 35 && time_sec <= 40)return 10;
-  //else if(time_sec > 40 && time_sec <= 45)return 20;
-  //else if(time_sec > 45 && time_sec <= 50)return 30;
+  if(time_sec <= 5)return 10;
+  else if(time_sec >5 && time_sec <= 10)return 20;
+  else if(time_sec > 10 && time_sec <= 15)return 30;
+  else if(time_sec > 15 && time_sec <= 20)return 40;
+  else if(time_sec > 20 && time_sec <= 25)return 50;
+  else if(time_sec > 25 && time_sec <= 30)return 10;
+  else if(time_sec > 30 && time_sec <= 35)return 10;
+  else if(time_sec > 35 && time_sec <= 40)return 10;
+  else if(time_sec > 40 && time_sec <= 45)return 10;
+  else if(time_sec > 45 && time_sec <= 50)return 10;
   //else if(time_sec > 50 && time_sec <= 55)return 40;
   //else if(time_sec > 55 && time_sec <= 60)return 50;
   //else if(time_sec > 60 && time_sec <= 65)return 60;
-  else return 0;
+  else return 10;
 }
 
 /*
