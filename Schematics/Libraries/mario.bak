@@ -1339,11 +1339,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-<<<<<<< HEAD
 		(property "Reference" "LM2596"
-=======
-		(property "Reference" "LM295"
->>>>>>> 32b5e5e045b3d6fde9b7229c05e5d8c98b2ed2d3
 			(at 2.032 -1.524 0)
 			(effects
 				(font
